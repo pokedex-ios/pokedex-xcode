@@ -11,6 +11,9 @@ import UIKit
 let apiURL = "https://pokeapi.co/api/v2/pokemon/"
 
 class ItemViewController: UIViewController {
+    
+    @IBOutlet weak var pokemonImage: UIImageView!
+    
     var pokemonID: Int?
     var pokemonName: String?
     
@@ -32,6 +35,12 @@ class ItemViewController: UIViewController {
         let apiURLWithPokemon = "\(apiURL)\(pokemonID)/"
         let apiData = NSData(contentsOfURL: NSURL(string: apiURLWithPokemon)!)
         
+        let imageURLString = "https://raw.githubusercontent.com/pokedex-ios/pokedex-artwork/master/images/\(pokemonID).png"
+        
+        NSLog(imageURLString)
+        
+        self.pokemonImage.image = UIImage(data: NSData(contentsOfURL: NSURL(string: imageURLString)!)!)
+        
         // NSLog("\(apiData)")
         do {
             let json = try NSJSONSerialization.JSONObjectWithData(apiData!, options: NSJSONReadingOptions(rawValue: 0))
@@ -40,6 +49,7 @@ class ItemViewController: UIViewController {
             
             let pokemon = json as! [String: AnyObject]
             // NSLog("\(pokemon)")
+
         } catch {
             NSLog("Blaaaaa")
         }

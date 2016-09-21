@@ -10,18 +10,20 @@ import UIKit
 
 class PokemonListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    @IBOutlet weak var pokemonImage: UIImageView?
     override func viewDidLoad() {
         super.viewDidLoad()
+        //
         // Do any additional setup after loading the view, typically from a nib.
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        //
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ListOfPokemon.count
+        
+        //
+        // Make a number of rows for each Pokemon
+        //
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -29,11 +31,18 @@ class PokemonListViewController: UIViewController, UITableViewDataSource, UITabl
         let cell = tableView.dequeueReusableCellWithIdentifier("cell")!
         cell.textLabel?.text = ListOfPokemon[indexPath.row] + " #\(pokemonID)"
         return cell
+        
+        //
+        // Change cell names to items in Pokemon list
+        //
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         self.performSegueWithIdentifier("viewItem", sender: indexPath.row)
+        //
+        // When clicked on an item, do the segue
+        //
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -43,6 +52,14 @@ class PokemonListViewController: UIViewController, UITableViewDataSource, UITabl
             let row = sender! as! Int
             destination.pokemonID = row + 1
             destination.pokemonName = ListOfPokemon[row]
+//            let imageURLString = "https://raw.githubusercontent.com/pokedex-ios/pokedex-artwork/master/images/\(destination.pokemonID!).png"
+//            
+//            NSLog(imageURLString)
+            
+            
+            //
+            // Code for generating the Pokédex entry!
+            //
         default:
             return
         }
